@@ -1,0 +1,19 @@
+---
+title: "ggplot2 practice"
+author: "Kazu Nozue"
+date: "April 8, 2016"
+output: word_document
+---
+# chapter2
+```{r}
+library(ggplot2)
+qplot(carat, price, data = diamonds)
+qplot(log(carat), log(price), data = diamonds)
+
+qplot(mpg, wt, data = mtcars, colour = cyl)
+qplot(mpg, wt, data = mtcars, size = cyl)
+qplot(mpg, wt, data = mtcars, facets = vs ~ am)
+
+
+
+```

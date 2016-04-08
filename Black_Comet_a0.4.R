@@ -1,6 +1,7 @@
 ### calculate PAR, R/FR ratio, and graph out spectrum from Black commet data file (".IRR"). 
 ###### Kazu Nozue (Nov 08, 2011)
 ###### alpha version 0.4 (062112)
+###### for Liza (040716)
 ### R/FR function
 R_FR_ratio<-function(spec,resolution){ #1st column is wavelength(nm), 2nd column is fluence rate (micro E) measured by Black Comet	
 	#print(as.character(spec))
@@ -48,4 +49,53 @@ GH4040116<-read.table("040116GH4.IRR",header=FALSE,skip=2) # this is Susan's dat
 PAR(GH4040116,0.5) # 433.8649
 R_FR_ratio(GH4040116,0.5) # 0.9603109
 spec.graph2(GH4040116,0.5,"blue","GH4040116") # find a pdf file in directory in your 
+
+### ggplot2 version practice #####
+spec.all<-cbind(GH1040116[-1775,],GH2040116[-1775,2],GH3040116[-1775,2],GH4040116[-1775,2])
+head(spec.all)
+tail(spec.all)
+colnames(spec.all)<-c("wavelength","GH1","GH2","GH3","GH4")
+qplot(data=spec.all,x=wavelength,y=GH1)
+str(spec.all)
+class(spec.all[,1])
+#spec.all[,1]<-as.numeric(spec.all[,1]) # this will give you strange data
+spec.all[,1]<-as.numeric(as.character(spec.all[,1]))
+head(spec.all);tail(spec.all)
+qplot(data=spec.all[,1:2],x=wavelength,y=GH1)
+# use rbind
+GH1040116$type<-"GH1"
+GH2040116$type<-"GH2"
+GH3040116$type<-"GH3"
+GH4040116$type<-"GH4"
+
+
+spec.all.r<-rbind(GH1040116[-1775,],GH2040116[-1775,],GH3040116[-1775,],GH4040116[-1775,])
+head(spec.all.r)
+summary(spec.all.r)
+table(spec.all.r$type)
+spec.all.r[,1]<-as.numeric(as.character(spec.all.r[,1]))
+qplot(data=spec.all.r,x=V1,y=V2,color=type)
+# ver2
+GH1040116$angle<-0
+GH2040116$angle<-45
+GH3040116$angle<-0
+GH4040116$angle<-45
+# distance
+GH1040116$distance<-12
+GH2040116$distance<-12
+GH3040116$distance<-0
+GH4040116$distance<-0
+#
+head(GH1040116)
+spec.all.r<-rbind(GH1040116[-1775,],GH2040116[-1775,],GH3040116[-1775,],GH4040116[-1775,])
+head(spec.all.r)
+summary(spec.all.r)
+table(spec.all.r$angle)
+spec.all.r[,1]<-as.numeric(as.character(spec.all.r[,1]))
+qplot(data=spec.all.r,x=V1,y=V2,facets = angle ~ distance,color=distance,shape=factor(angle))
+
+
+
+
+
 
