@@ -94,6 +94,18 @@ table(spec.all.r$angle)
 spec.all.r[,1]<-as.numeric(as.character(spec.all.r[,1]))
 qplot(data=spec.all.r,x=V1,y=V2,facets = angle ~ distance,color=distance,shape=factor(angle))
 
+# assignment (041216)
+## use ggplot() to draw the same graph
+# hint (in Chapter 4). Find our wich geom you need to use.
+p <- ggplot(mtcars, aes(mpg, wt))
+p <- p + geom_point(colour = "darkblue")
+p
+# bonus: calculate R/FR ratio and add them to each plot.
+# your answer ###
+
+
+
+
 
 
 
