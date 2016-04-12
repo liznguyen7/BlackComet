@@ -85,7 +85,14 @@ GH1040116$distance<-12
 GH2040116$distance<-12
 GH3040116$distance<-0
 GH4040116$distance<-0
-#
+#type
+# use rbind
+GH1040116$type<-"GH1"
+GH2040116$type<-"GH2"
+GH3040116$type<-"GH3"
+GH4040116$type<-"GH4"
+
+
 head(GH1040116)
 spec.all.r<-rbind(GH1040116[-1775,],GH2040116[-1775,],GH3040116[-1775,],GH4040116[-1775,])
 head(spec.all.r)
@@ -116,10 +123,24 @@ plot
 plot<-ggplot(spec.all.r, aes(V1,V2,color=type,shape=factor(angle))) + geom_point() + facet_grid(angle~distance)
 ##add angle in as legend
 plot<-ggplot(spec.all.r, aes(V1,V2,color=type,shape=factor(angle),size=distance)) +scale_size_continuous(range=c(1,2)) + geom_point() + facet_grid(angle~distance)
+plot
 ##add distance in as legend --how to get constant size??
 ##how to change x and y axis? 
 
+str(spec.all.r)
+summary(spec.all.r)
+table(spec.all.r$distance)
+# having the same size (KN)
+plot<-ggplot(spec.all.r, aes(V1,V2,color=type,shape=factor(angle))) + geom_point() + facet_grid(angle~distance)
+plot
+# 
+plot<-ggplot(spec.all.r, aes(V1,V2,color=type,shape=factor(angle),size=2)) + geom_point() + facet_grid(angle~distance)
+plot
+#
+plot<-ggplot(spec.all.r, aes(V1,V2,color=type,shape=factor(angle))) + geom_point() + facet_grid(angle~distance)
+plot
 
+<<<<<<< HEAD
 
 
 
@@ -138,3 +159,17 @@ plot<-ggplot(spec.all.r, aes(V1,V2,color=type,shape=factor(angle),size=distance)
 ##add distance in as legend --how to get constant size??
 ##how to change x and y axis? 
 
+=======
+# chagne x, y axis label (ver1) # did not work
+head(spec.all.r)
+names(spec.all.r)[1:2]
+names(spec.all.r)[1:2]<-c("wavelength (nm)","fluence rate (µE)")
+names(spec.all.r)
+plot<-ggplot(spec.all.r, aes(x=wavelength (nm),y=names(spec.all.r)[2],color=type,shape=factor(angle))) + geom_point() + facet_grid(angle~distance)
+plot
+# chagne x,y axis label (ver2)
+head(spec.all.r)
+plot<-ggplot(spec.all.r, aes(x=V1,y=V2,color=type,shape=factor(angle))) + geom_point() + facet_grid(angle~distance)
+plot<-plot + labs(x="wavelength (nm)")
+plot
+>>>>>>> f0077cbb165202a77a749c12ebe32cbca11ddeda
