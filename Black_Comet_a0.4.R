@@ -94,6 +94,33 @@ table(spec.all.r$angle)
 spec.all.r[,1]<-as.numeric(as.character(spec.all.r[,1]))
 qplot(data=spec.all.r,x=V1,y=V2,facets = angle ~ distance,color=distance,shape=factor(angle))
 
+# assignment (041216)
+## use ggplot() to draw the same graph
+# hint (in Chapter 4). Find our wich geom you need to use.
+p <- ggplot(mtcars, aes(mpg, wt))
+p <- p + geom_point(colour = "darkblue")
+p
+# bonus: calculate R/FR ratio and add them to each plot.
+# your answer ###
+
+
+###make same graph as qplot using ggplot
+#use same data code from qplot for ggplot
+plot<-ggplot(spec.all.r, aes(V1,V2))
+plot<-plot+geom_point()
+plot
+##gives you basic all 4 spectrum lines on one graph
+plot<-ggplot(spec.all.r, aes(V1,V2,color=type)) + geom_point() + facet_grid(distance~angle)
+plot
+##should give you 2x2 plot 
+plot<-ggplot(spec.all.r, aes(V1,V2,color=type,shape=factor(angle))) + geom_point() + facet_grid(angle~distance)
+##add angle in as legend
+plot<-ggplot(spec.all.r, aes(V1,V2,color=type,shape=factor(angle),size=distance)) +scale_size_continuous(range=c(1,2)) + geom_point() + facet_grid(angle~distance)
+##add distance in as legend --how to get constant size??
+##how to change x and y axis? 
+
+
+
 
 
 ###make same graph as qplot using ggplot
