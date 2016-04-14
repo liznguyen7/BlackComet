@@ -1,0 +1,14 @@
+---
+title: "ggplot practice LN"
+output: html_document
+---
+
+##ggplot practice 
+```{r}
+nmmaps<-read.csv("chicago-nmmaps.csv", as.is=T)
+nmmaps$date<-as.Date(nmmaps$date)
+nmmaps<-nmmaps[nmmaps$date>as.Date("1996-12-31"),]
+nmmaps$year<-substring(nmmaps$date,1,4)
+head(nmmaps)
+tail(nmmaps)
+```

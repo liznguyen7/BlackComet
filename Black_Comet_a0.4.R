@@ -161,15 +161,15 @@ plot<-ggplot(spec.all.r, aes(V1,V2,color=type,shape=factor(angle),size=distance)
 
 =======
 # chagne x, y axis label (ver1) # did not work
-head(spec.all.r)
-names(spec.all.r)[1:2]
-names(spec.all.r)[1:2]<-c("wavelength (nm)","fluence rate (µE)")
-names(spec.all.r)
-plot<-ggplot(spec.all.r, aes(x=wavelength (nm),y=names(spec.all.r)[2],color=type,shape=factor(angle))) + geom_point() + facet_grid(angle~distance)
-plot
+# head(spec.all.r)
+# names(spec.all.r)[1:2]
+# names(spec.all.r)[1:2]<-c("wavelength (nm)","fluence rate (µE)")
+# names(spec.all.r)
+# plot<-ggplot(spec.all.r, aes(x=wavelength (nm),y=names(spec.all.r)[2],color=type,shape=factor(angle))) + geom_point() + facet_grid(angle~distance)
+# plot
 # chagne x,y axis label (ver2)
 head(spec.all.r)
 plot<-ggplot(spec.all.r, aes(x=V1,y=V2,color=type,shape=factor(angle))) + geom_point() + facet_grid(angle~distance)
-plot<-plot + labs(x="wavelength (nm)")
-plot
+plot<-plot + labs(x="wavelength (nm)", y="fluence rate (µE)")
+plotplot
 >>>>>>> f0077cbb165202a77a749c12ebe32cbca11ddeda
