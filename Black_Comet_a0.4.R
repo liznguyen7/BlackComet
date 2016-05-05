@@ -178,4 +178,11 @@ plot<-plot + ggtitle('042216 Spectrum') + annotate("text", x=700,y=.5,label=c("1
 ##label=ratio values you obtain - must match trial to plot yourself
 
 
->>>>>>> f0077cbb165202a77a749c12ebe32cbca11ddeda
+##add ratio 
+xpos<- c(300,300,600,600)
+ypos<- c(0.8,0.8,0.8,0.8)
+lab<- c(1,2,3,4)
+ldata <- data.frame(xpos,ypos,lab,angle=c(0,0,90,90),distance=c(0,4,0,4),type=c("GH1","GH2","GH3","GH4"))
+
+plot<-ggplot(spec.all.r, aes(x=V1,y=V2,shape=factor(angle))) + geom_point(aes(color=type)) + facet_grid(angle~distance)
+plot + geom_text(data=ldata,aes(x=xpos,y=ypos,label=lab))
