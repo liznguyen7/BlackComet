@@ -171,5 +171,11 @@ plot<-ggplot(spec.all.r, aes(V1,V2,color=type,shape=factor(angle),size=distance)
 head(spec.all.r)
 plot<-ggplot(spec.all.r, aes(x=V1,y=V2,color=type,shape=factor(angle))) + geom_point() + facet_grid(angle~distance)
 plot<-plot + labs(x="wavelength (nm)", y="fluence rate (µE)")
-plotplot
+plot
+
+## add text R/FR ratio & title
+plot<-plot + ggtitle('042216 Spectrum') + annotate("text", x=700,y=.5,label=c("1.106",".9964","1.124","1.008"))
+##label=ratio values you obtain - must match trial to plot yourself
+
+
 >>>>>>> f0077cbb165202a77a749c12ebe32cbca11ddeda
