@@ -290,5 +290,6 @@ ggsave(file="spec050516.pdf") # Please add R/FR ratio inside plot
 relative.spec<-data.frame(wavelength=GH1IN050516[-1775,1],filtered=GH1OUT050516[-1775,2]/GH1IN050516[-1775,2])
 relative.spec[is.na(relative.spec)]<-0
 relative.spec$wavelength<-as.numeric(as.character(relative.spec$wavelength))
-qplot(data=relative.spec,x=wavelength,y=filtered)
+filtered.spec.plot<-qplot(data=relative.spec,x=wavelength,y=filtered)
+ggsave(file="filtered.spec.plot.pdf",plot=filtered.spec.plot)
 
