@@ -257,6 +257,26 @@ PAR(GH2OUT050516,0.5) # 162.5635
 R_FR_ratio(GH2OUT050516,0.5) # 1.292816
 
 
+GH1IN050516$angle<-0
+GH2IN050516$angle<-90
+GH3IN050516$angle<-0
+GH4IN050516$angle<-90
+GH1OUT050516$angle<-0
+GH2OUT050516$angle<-90
+# distance
+GH1IN050516$type<-"GHSUN"
+GH2IN050516$type<-"GHSUN"
+GH3IN050516$type<-"GHSHADE"
+GH4IN050516$type<-"GHSHADE"
+GH1OUT050516$type<-"OUT"
+GH2OUT050516$type<-"OUT"
+
+
+spec.all.r<-rbind(GH1IN050516[-1775,],GH2IN050516[-1775,],GH3IN050516[-1775,],GH4IN050516[-1775,],GH1OUT050516[-1775,],GH2OUT050516[-1775,])
+spec.all.r[,1]<-as.numeric(as.character(spec.all.r[,1]))
+
+plot<-ggplot(spec.all.r, aes(x=V1,y=V2,shape=factor(angle))) + geom_point() + facet_grid(angle~type)
+
 
 
 
