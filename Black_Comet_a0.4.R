@@ -263,22 +263,32 @@ GH3IN050516$angle<-0
 GH4IN050516$angle<-90
 GH1OUT050516$angle<-0
 GH2OUT050516$angle<-90
-# distance
-GH1IN050516$type<-"GHSUN"
-GH2IN050516$type<-"GHSUN"
-GH3IN050516$type<-"GHSHADE"
-GH4IN050516$type<-"GHSHADE"
-GH1OUT050516$type<-"OUT"
-GH2OUT050516$type<-"OUT"
+# type
+GH1IN050516$type<-"SUN"
+GH2IN050516$type<-"SUN"
+GH3IN050516$type<-"SHADE"
+GH4IN050516$type<-"SHADE"
+GH1OUT050516$type<-"SUN"
+GH2OUT050516$type<-"SUN"
+# location
+GH1IN050516$location<-"GH"
+GH2IN050516$location<-"GH"
+GH3IN050516$location<-"GH"
+GH4IN050516$location<-"GH"
+GH1OUT050516$location<-"OUT"
+GH2OUT050516$location<-"OUT"
 
 
 spec.all.r<-rbind(GH1IN050516[-1775,],GH2IN050516[-1775,],GH3IN050516[-1775,],GH4IN050516[-1775,],GH1OUT050516[-1775,],GH2OUT050516[-1775,])
 spec.all.r[,1]<-as.numeric(as.character(spec.all.r[,1]))
+spec.all.r$type<-factor(spec.all.r$type,levels=c("OUT","SUN","SHADE"))
+plot<-ggplot(spec.all.r, aes(x=V1,y=V2,shape=factor(angle),color=factor(location))) + geom_point() + facet_grid(angle~type)
+plot
+ggsave(file="spec050516.pdf") # Please add R/FR ratio inside plot
 
-plot<-ggplot(spec.all.r, aes(x=V1,y=V2,shape=factor(angle))) + geom_point() + facet_grid(angle~type)
-
-
-
-
-
+# filtering effect in greenhouse
+relative.spec<-data.frame(wavelength=GH1IN050516[-1775,1],filtered=GH1OUT050516[-1775,2]/GH1IN050516[-1775,2])
+relative.spec[is.na(relative.spec)]<-0
+relative.spec$wavelength<-as.numeric(as.character(relative.spec$wavelength))
+qplot(data=relative.spec,x=wavelength,y=filtered)
 
