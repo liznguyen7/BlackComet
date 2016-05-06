@@ -173,7 +173,6 @@ plot<-ggplot(spec.all.r, aes(x=V1,y=V2,color=type,shape=factor(angle))) + geom_p
 plot<-plot + labs(x="wavelength (nm)", y="fluence rate (µE)")
 plot
 
-<<<<<<< HEAD
 ## 050316
 # GH1 # Angle 1: straight up (no surrounding plant)
 GH1050316<-read.table("050316GH1.IRR",header=FALSE,skip=2) # this is Susan's data
@@ -216,14 +215,10 @@ plot<-ggplot(spec.all.r, aes(x=V1,y=V2,shape=factor(angle))) + geom_point() + fa
 plot<-plot + labs(x="wavelength (nm)")
 plot
 
-
-
-
 =======
 ## add text R/FR ratio & title
 plot<-plot + ggtitle('042216 Spectrum') + annotate("text", x=700,y=.5,label=c("1.106",".9964","1.124","1.008"))
 ##label=ratio values you obtain - must match trial to plot yourself
-
 
 ##add ratio 
 xpos<- c(300,300,600,600)
@@ -233,4 +228,37 @@ ldata <- data.frame(xpos,ypos,lab,angle=c(0,0,90,90),distance=c(0,4,0,4),type=c(
 
 plot<-ggplot(spec.all.r, aes(x=V1,y=V2,shape=factor(angle))) + geom_point(aes(color=type)) + facet_grid(angle~distance)
 plot + geom_text(data=ldata,aes(x=xpos,y=ypos,label=lab))
->>>>>>> cb5965a30dfb815044d16c9a9e01430b3f79b92b
+
+# 050516 
+# inside green hosue
+# GH1 # Angle 1: straight up (no surrounding plant)
+GH1IN050516<-read.table("050516GH1IN.IRR",header=FALSE,skip=2) # this is Susan's data
+PAR(GH1IN050516,0.5) # 178.9069
+R_FR_ratio(GH1IN050516,0.5) # 1.17833
+# GH2 Angle 2: ~90 degree (no surrounding plant)
+GH2IN050516<-read.table("050516GH2IN.IRR",header=FALSE,skip=2) # this is Susan's data
+PAR(GH2IN050516,0.5) # 79.82014
+R_FR_ratio(GH2IN050516,0.5) # 1.207607
+# GH3 straight up with surrounding plants
+GH3IN050516<-read.table("050516GH3IN.IRR",header=FALSE,skip=2) # this is Susan's data
+PAR(GH3IN050516,0.5) # 106.1501
+R_FR_ratio(GH3IN050516,0.5) # 0.846201
+# outside green house
+GH4IN050516<-read.table("050516GH4IN.IRR",header=FALSE,skip=2) # this is Susan's data
+PAR(GH4IN050516,0.5) # 59.84898
+R_FR_ratio(GH4IN050516,0.5) # 0.8984954
+# GH1 # Angle 1: straight up (no surrounding plant) oustiside greenhosue
+GH1OUT050516<-read.table("050516GH1OUT.IRR",header=FALSE,skip=2) # this is Susan's data
+PAR(GH1OUT050516,0.5) # 498.1909
+R_FR_ratio(GH1OUT050516,0.5) # 1.261936
+# GH2 # Angle 1: straight up (no surrounding plant) oustiside greenhosue
+GH2OUT050516<-read.table("050516GH2OUT.IRR",header=FALSE,skip=2) # this is Susan's data
+PAR(GH2OUT050516,0.5) # 162.5635
+R_FR_ratio(GH2OUT050516,0.5) # 1.292816
+
+
+
+
+
+
+
