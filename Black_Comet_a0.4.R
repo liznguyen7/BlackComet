@@ -140,19 +140,40 @@ plot
 plot<-ggplot(spec.all.r, aes(V1,V2,color=type,shape=factor(angle))) + geom_point() + facet_grid(angle~distance)
 plot
 
-# chagne x, y axis label (ver1) # did not work
-head(spec.all.r)
-names(spec.all.r)[1:2]
-names(spec.all.r)[1:2]<-c("wavelength (nm)","fluence rate (µE)")
-names(spec.all.r)
-plot<-ggplot(spec.all.r, aes(x=wavelength (nm),y=names(spec.all.r)[2],color=type,shape=factor(angle))) + geom_point() + facet_grid(angle~distance)
+<<<<<<< HEAD
+
+
+
+###make same graph as qplot using ggplot
+#use same data code from qplot for ggplot
+plot<-ggplot(spec.all.r, aes(V1,V2))
+plot<-plot+geom_point()
 plot
+##gives you basic all 4 spectrum lines on one graph
+plot<-ggplot(spec.all.r, aes(V1,V2,color=type)) + geom_point() + facet_grid(distance~angle)
+plot
+##should give you 2x2 plot 
+plot<-ggplot(spec.all.r, aes(V1,V2,color=type,shape=factor(angle))) + geom_point() + facet_grid(angle~distance)
+##add angle in as legend
+plot<-ggplot(spec.all.r, aes(V1,V2,color=type,shape=factor(angle),size=distance)) +scale_size_continuous(range=c(1,2)) + geom_point() + facet_grid(angle~distance)
+##add distance in as legend --how to get constant size??
+##how to change x and y axis? 
+
+=======
+# chagne x, y axis label (ver1) # did not work
+# head(spec.all.r)
+# names(spec.all.r)[1:2]
+# names(spec.all.r)[1:2]<-c("wavelength (nm)","fluence rate (µE)")
+# names(spec.all.r)
+# plot<-ggplot(spec.all.r, aes(x=wavelength (nm),y=names(spec.all.r)[2],color=type,shape=factor(angle))) + geom_point() + facet_grid(angle~distance)
+# plot
 # chagne x,y axis label (ver2)
 head(spec.all.r)
 plot<-ggplot(spec.all.r, aes(x=V1,y=V2,color=type,shape=factor(angle))) + geom_point() + facet_grid(angle~distance)
-plot<-plot + labs(x="wavelength (nm)")
+plot<-plot + labs(x="wavelength (nm)", y="fluence rate (µE)")
 plot
 
+<<<<<<< HEAD
 ## 050316
 # GH1 # Angle 1: straight up (no surrounding plant)
 GH1050316<-read.table("050316GH1.IRR",header=FALSE,skip=2) # this is Susan's data
@@ -198,3 +219,18 @@ plot
 
 
 
+=======
+## add text R/FR ratio & title
+plot<-plot + ggtitle('042216 Spectrum') + annotate("text", x=700,y=.5,label=c("1.106",".9964","1.124","1.008"))
+##label=ratio values you obtain - must match trial to plot yourself
+
+
+##add ratio 
+xpos<- c(300,300,600,600)
+ypos<- c(0.8,0.8,0.8,0.8)
+lab<- c(1,2,3,4)
+ldata <- data.frame(xpos,ypos,lab,angle=c(0,0,90,90),distance=c(0,4,0,4),type=c("GH1","GH2","GH3","GH4"))
+
+plot<-ggplot(spec.all.r, aes(x=V1,y=V2,shape=factor(angle))) + geom_point(aes(color=type)) + facet_grid(angle~distance)
+plot + geom_text(data=ldata,aes(x=xpos,y=ypos,label=lab))
+>>>>>>> cb5965a30dfb815044d16c9a9e01430b3f79b92b
