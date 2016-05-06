@@ -152,3 +152,49 @@ head(spec.all.r)
 plot<-ggplot(spec.all.r, aes(x=V1,y=V2,color=type,shape=factor(angle))) + geom_point() + facet_grid(angle~distance)
 plot<-plot + labs(x="wavelength (nm)")
 plot
+
+## 050316
+# GH1 # Angle 1: straight up (no surrounding plant)
+GH1050316<-read.table("050316GH1.IRR",header=FALSE,skip=2) # this is Susan's data
+PAR(GH1050316,0.5) # 492
+R_FR_ratio(GH1050316,0.5) # 0.61
+# GH2 Angle 2: ~90 degree (no surrounding plant)
+GH2050316<-read.table("050316GH2.IRR",header=FALSE,skip=2) # this is Susan's data
+PAR(GH2050316,0.5) # 388
+R_FR_ratio(GH2050316,0.5) # 0.97
+# GH3 straight up with surrounding plants
+GH3050316<-read.table("050316GH3.IRR",header=FALSE,skip=2) # this is Susan's data
+PAR(GH3050316,0.5) # 256
+R_FR_ratio(GH3050316,0.5) # 0.66
+
+# GH4 -90 degree with surrounding plants
+GH4050316<-read.table("050316GH4.IRR",header=FALSE,skip=2) # this is Susan's data
+PAR(GH4050316,0.5) # 315
+R_FR_ratio(GH4050316,0.5) # 0.89
+
+#
+# ver2
+# angle of sensor
+GH1050316$angle<-0
+GH2050316$angle<-90
+GH3050316$angle<-0
+GH4050316$angle<-90
+# treatment
+GH1050316$trt<-"alone"
+GH2050316$trt<-"alone"
+GH3050316$trt<-"surrounded"
+GH4050316$trt<-"surrounded"
+
+spec.all.r<-rbind(GH1050316[-1775,],GH2050316[-1775,],GH3050316[-1775,],GH4050316[-1775,])
+head(spec.all.r)
+summary(spec.all.r)
+table(spec.all.r$angle)
+spec.all.r[,1]<-as.numeric(as.character(spec.all.r[,1]))
+library(ggplot2)
+plot<-ggplot(spec.all.r, aes(x=V1,y=V2,shape=factor(angle))) + geom_point() + facet_grid(angle~trt)
+plot<-plot + labs(x="wavelength (nm)")
+plot
+
+
+
+
