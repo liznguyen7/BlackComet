@@ -293,3 +293,61 @@ relative.spec$wavelength<-as.numeric(as.character(relative.spec$wavelength))
 filtered.spec.plot<-qplot(data=relative.spec,x=wavelength,y=filtered)
 ggsave(file="filtered.spec.plot.pdf",plot=filtered.spec.plot)
 
+# 050616 (tomato dense vs non dense)
+# inside green hosue
+# GH1 # Angle 1: straight up (no surrounding plant)
+GH1IN050616<-read.table("050616GH1IN.IRR",header=FALSE,skip=2) # this is Susan's data
+PAR(GH1IN050616,0.5) # 1041.308
+R_FR_ratio(GH1IN050616,0.5) # 1.115923
+# GH2 Angle 2: ~90 degree (no surrounding plant)
+GH2IN050616<-read.table("050616GH2IN.IRR",header=FALSE,skip=2) # this is Susan's data
+PAR(GH2IN050616,0.5) # 196.4688
+R_FR_ratio(GH2IN050616,0.5) # 0.9796839
+# GH3 straight up with surrounding plants
+GH3IN050616<-read.table("050616GH3IN.IRR",header=FALSE,skip=2) # this is Susan's data
+PAR(GH3IN050616,0.5) # 523.7732
+R_FR_ratio(GH3IN050616,0.5) # 1.159585
+# GH4 
+GH4IN050616<-read.table("050616GH4IN.IRR",header=FALSE,skip=2) # this is Susan's data
+PAR(GH4IN050616,0.5) # 158.7858
+R_FR_ratio(GH4IN050616,0.5) # 0.9138912
+# GH1 # Angle 1: straight up (no surrounding plant) oustiside greenhosue
+GH1OUT050616<-read.table("050616GH1OUT.IRR",header=FALSE,skip=2) # this is Susan's data
+PAR(GH1OUT050616,0.5) # 2167.11
+R_FR_ratio(GH1OUT050616,0.5) # 1.183582
+# GH2 # Angle 1: straight up (no surrounding plant) oustiside greenhosue
+GH2OUT050616<-read.table("050616GH2OUT.IRR",header=FALSE,skip=2) # this is Susan's data
+PAR(GH2OUT050616,0.5) # 474.5879
+R_FR_ratio(GH2OUT050616,0.5) # 1.17013
+
+
+GH1IN050616$angle<-0
+GH2IN050616$angle<-90
+GH3IN050616$angle<-0
+GH4IN050616$angle<-90
+GH1OUT050616$angle<-0
+GH2OUT050616$angle<-90
+# type
+GH1IN050616$type<-"SUN"
+GH2IN050616$type<-"SUN"
+GH3IN050616$type<-"SHADE"
+GH4IN050616$type<-"SHADE"
+GH1OUT050616$type<-"SUN"
+GH2OUT050616$type<-"SUN"
+# location
+GH1IN050616$location<-"GH"
+GH2IN050616$location<-"GH"
+GH3IN050616$location<-"GH"
+GH4IN050616$location<-"GH"
+GH1OUT050616$location<-"OUT"
+GH2OUT050616$location<-"OUT"
+
+
+spec.all.r<-rbind(GH1IN050616[-1775,],GH2IN050616[-1775,],GH3IN050616[-1775,],GH4IN050616[-1775,],GH1OUT050616[-1775,],GH2OUT050616[-1775,])
+spec.all.r[,1]<-as.numeric(as.character(spec.all.r[,1]))
+spec.all.r$type<-factor(spec.all.r$type,levels=c("OUT","SUN","SHADE"))
+plot<-ggplot(spec.all.r, aes(x=V1,y=V2,shape=factor(angle),color=factor(location))) + geom_point() + facet_grid(angle~type)
+plot
+ggsave(file="spec050616.tomato.denseVSnondense.pdf") # Please add R/FR ratio inside plot
+
+
