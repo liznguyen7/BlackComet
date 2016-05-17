@@ -375,4 +375,16 @@ plot<-ggplot(spec.all.r, aes(x=V1,y=V2,shape=factor(angle),color=factor(location
 plot
 ggsave(file="spec050616.tomato.denseVSnondense.pdf") # Please add R/FR ratio inside plot
 
+# tomato trait data analysis # (Kazu, 051716)
+tomato.trait.data<-read.csv("tomato_trait_data.csv")
+head(tomato.trait.data)
+library(reshape2)
+tomato.trait.data.melt<-melt(tomato.trait.data[,-1],)
+tomato.trait.data.melt$trt<-sub("(TA|TN)([[:digit:]]+)","\\1",tomato.trait.data.melt$variable)
+tomato.trait.data.melt$rep<-sub("(TA|TN)([[:digit:]]+)","\\2",tomato.trait.data.melt$variable)
+# plot
+library(ggplot2)
+ggplot(tomato.trait.data.melt,aes(x=trait,y=value,color=factor(trt),shape=trait)) + geom_jitter() + facet_grid(.~trt)
+
+
 
