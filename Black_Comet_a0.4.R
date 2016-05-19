@@ -452,7 +452,7 @@ spec.out.inside.df2.melt2$
 # graph
 plot<-ggplot(spec.out.inside.df2.melt2, aes(x=wavelength,y=value,shape=factor(angle),color=factor(location))) + geom_point(size=0.5) + facet_grid(date~angle,scale="free")
 plot
-ggsave(file="sepc.outside.in.pdf",width=8,height=11)
+ggsave(file="sepc.outside.in.png",width=8,height=11)
 
 
 
