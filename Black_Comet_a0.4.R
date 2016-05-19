@@ -376,15 +376,85 @@ plot
 ggsave(file="spec050616.tomato.denseVSnondense.pdf") # Please add R/FR ratio inside plot
 
 # tomato trait data analysis # (Kazu, 051716)
-tomato.trait.data<-read.csv("tomato_trait_data.csv")
+tomato.trait.data<-read.csv("tomato_trait_data.csv") 
 head(tomato.trait.data)
 library(reshape2)
-tomato.trait.data.melt<-melt(tomato.trait.data[,-1],)
+tomato.trait.data.melt<-melt(tomato.trait.data,id.var=c("trait","date"))
 tomato.trait.data.melt$trt<-sub("(TA|TN)([[:digit:]]+)","\\1",tomato.trait.data.melt$variable)
 tomato.trait.data.melt$rep<-sub("(TA|TN)([[:digit:]]+)","\\2",tomato.trait.data.melt$variable)
 # plot
 library(ggplot2)
-ggplot(tomato.trait.data.melt,aes(x=trait,y=value,color=factor(trt),shape=trait)) + geom_jitter() + facet_grid(.~trt)
+plot<-ggplot(tomato.trait.data.melt,aes(x=trt,y=value,color=factor(trt))) + geom_jitter() + facet_grid(date~trait)
+plot<-plot+ theme(strip.text.x=element_text(angle=90))
+ggsave(file="tomato.SAS.GH.png",height=5,width=5*1.3)
+
+# tomato spectrum (Kazu, 051716)
+spec.files<-list.files(pattern=".IRR")
+# calculate R/FR
+data.R_FR<-list()
+for(x in spec.files) {
+  temp<-read.table(x,header=FALSE,skip=2) #   
+  data.R_FR[x]<-R_FR_ratio(temp,0.5)
+}
+data.R_FR.df<-as.data.frame(data.R_FR)
+# calculate PAR
+data.PAR<-list()
+for(x in spec.files) {
+  temp<-read.table(x,header=FALSE,skip=2) #   
+  data.PAR[x]<-PAR(temp,0.5)
+}
+data.PAR.df<-as.data.frame(data.PAR)
+# merge
+PAR.R_FR<-data.frame(R_FR=t(data.R_FR.df),PAR=t(data.PAR.df))
+# graph
+rownames(PAR.R_FR)<-sub("^X","",rownames(PAR.R_FR))
+PAR.R_FR$date<-sub("([[:digit:]]+)(GH1|GH2|GH3|GH4)([[:print:]]+)","\\1",rownames(PAR.R_FR))
+PAR.R_FR$type<-sub("([[:digit:]]+)(GH1|GH2|GH3|GH4)([[:print:]]+)","\\2",rownames(PAR.R_FR))
+PAR.R_FR$others<-sub("([[:digit:]]+)(GH1|GH2|GH3|GH4)([[:print:]]+)","\\3",rownames(PAR.R_FR))
+PAR.R_FR$others<-sub(".IRR","",PAR.R_FR$others)
+
+# only TA(tomato alone) and TN (tomato neighbors)
+PAR.R_FR.tomato<-PAR.R_FR[c(grep("TA",PAR.R_FR$others),grep("TN",PAR.R_FR$others)),]
+PAR.R_FR.tomato$rep<-sub("(TA|TN)(.)([[:digit:]])","\\3",PAR.R_FR.tomato$others)
+PAR.R_FR.tomato$trt<-sub("(TA|TN)(.)([[:digit:]])","\\1",PAR.R_FR.tomato$others)
+PAR.R_FR.tomato$type<-sub("GH1","vertical",PAR.R_FR.tomato$type)
+PAR.R_FR.tomato$type<-sub("GH2","horizontal",PAR.R_FR.tomato$type)
+
+ggplot(PAR.R_FR.tomato,aes(x=trt,y=R_FR,color=PAR,shape=trt))+geom_jitter() + facet_grid(date~type) + scale_color_gradient(low="black",high="magenta")
+ggsave(file="tomato.PAR.RFR.png")
+
+# spec (outside vs inside green hosue)
+spec.files.out.inside<-c(grep("OUT",spec.files,value=T),grep("GH2IN",spec.files,value=T), grep("GH1IN",spec.files,value=T),grep("TA",spec.files,value=T))
+
+spec.out.inside<-list()
+for(y in spec.files.out.inside) {
+  spec.out.inside[[y]]<-read.table(y,header=FALSE,skip=2)
+}
+spec.out.inside.df<-as.data.frame(spec.out.inside)
+spec.out.inside.df2<-spec.out.inside.df[,c(1,grep(".V2",names(spec.out.inside.df)))]
+spec.out.inside.df2.melt<-melt(spec.out.inside.df2)
+head(spec.out.inside.df2.melt)
+str(spec.out.inside.df2.melt)
+spec.out.inside.df2.melt$date<-sub("(X[[:digit:]]+)([[:print:]]+)(.IRR.V2)","\\1",spec.out.inside.df2.melt$variable)
+spec.out.inside.df2.melt$date<-sub("X","",spec.out.inside.df2.melt$date)
+spec.out.inside.df2.melt$type<-sub("(X[[:digit:]]+)([[:print:]]+)(.IRR.V2)","\\2",spec.out.inside.df2.melt$variable)
+spec.out.inside.df2.melt$angle<-sub("(GH1|GH2)([[:print:]]+)","\\1",spec.out.inside.df2.melt$type)
+spec.out.inside.df2.melt$angle<-sub("GH1","vertical",spec.out.inside.df2.melt$angle)
+spec.out.inside.df2.melt$angle<-sub("GH2","horizontal",spec.out.inside.df2.melt$angle)
+spec.out.inside.df2.melt$location<-"IN"
+spec.out.inside.df2.melt$location[grep("OUT",spec.out.inside.df2.melt$type)]<-"OUT"
+names(spec.out.inside.df2.melt)[1]<-"wavelength"
+spec.out.inside.df2.melt$wavelength<-as.numeric(as.character(spec.out.inside.df2.melt$wavelength))
+spec.out.inside.df2.melt<-spec.out.inside.df2.melt[!is.na(spec.out.inside.df2.melt$wavelength),]
+spec.out.inside.df2.melt2<-spec.out.inside.df2.melt[spec.out.inside.df2.melt$wavelength<900,]
+# calculate IN/OUT ratio (on going)
+spec.out.inside.df2.melt2$
+# graph
+plot<-ggplot(spec.out.inside.df2.melt2, aes(x=wavelength,y=value,shape=factor(angle),color=factor(location))) + geom_point(size=0.5) + facet_grid(date~angle,scale="free")
+plot
+ggsave(file="sepc.outside.in.pdf",width=8,height=11)
 
 
+
+#
 
