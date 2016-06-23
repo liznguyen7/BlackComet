@@ -29,23 +29,23 @@ spec.graph2<-function(specdata,resolution, color,title) #1s column of specdata i
 setwd("/Volumes/Data6/data_JM4/BlackComet")
 # first test
 # Angle 1: straight up (12 in from plant)
-GH1040116<-read.table("040116GH1.IRR",header=FALSE,skip=2) # this is Susan's data
+GH1040116<-read.table("040116GH1.IRR",header=FALSE,skip=2) 
 PAR(GH1040116,0.5) # 
 R_FR_ratio(GH1040116,0.5) # 1.12
 spec.graph2(GH1040116,0.5,"blue","GH1040116") # find a pdf file in directory in your 
 # Angle 2: ~45 degree (12 in from plant)
-GH2040116<-read.table("040116GH2.IRR",header=FALSE,skip=2) # this is Susan's data
+GH2040116<-read.table("040116GH2.IRR",header=FALSE,skip=2) 
 PAR(GH2040116,0.5) # this must be 587.1529
 R_FR_ratio(GH2040116,0.5) # 1.12
 spec.graph2(GH2040116,0.5,"blue","GH2040116") # find a pdf file in directory in your 
 
 # Angle 1: straight up (directly next to plant)
-GH3040116<-read.table("040116GH3.IRR",header=FALSE,skip=2) # this is Susan's data
+GH3040116<-read.table("040116GH3.IRR",header=FALSE,skip=2) 
 PAR(GH3040116,0.5) # 652.6963
 R_FR_ratio(GH3040116,0.5) # 1.07
 spec.graph2(GH3040116,0.5,"blue","GH3040116") # find a pdf file in directory in your 
 # Angle 2: ~45 degree (directly next to plant)
-GH4040116<-read.table("040116GH4.IRR",header=FALSE,skip=2) # this is Susan's data
+GH4040116<-read.table("040116GH4.IRR",header=FALSE,skip=2) 
 PAR(GH4040116,0.5) # 433.8649
 R_FR_ratio(GH4040116,0.5) # 0.9603109
 spec.graph2(GH4040116,0.5,"blue","GH4040116") # find a pdf file in directory in your 
@@ -175,20 +175,20 @@ plot
 
 ## 050316
 # GH1 # Angle 1: straight up (no surrounding plant)
-GH1050316<-read.table("050316GH1.IRR",header=FALSE,skip=2) # this is Susan's data
+GH1050316<-read.table("050316GH1.IRR",header=FALSE,skip=2) 
 PAR(GH1050316,0.5) # 492
 R_FR_ratio(GH1050316,0.5) # 0.61
 # GH2 Angle 2: ~90 degree (no surrounding plant)
-GH2050316<-read.table("050316GH2.IRR",header=FALSE,skip=2) # this is Susan's data
+GH2050316<-read.table("050316GH2.IRR",header=FALSE,skip=2) 
 PAR(GH2050316,0.5) # 388
 R_FR_ratio(GH2050316,0.5) # 0.97
 # GH3 straight up with surrounding plants
-GH3050316<-read.table("050316GH3.IRR",header=FALSE,skip=2) # this is Susan's data
+GH3050316<-read.table("050316GH3.IRR",header=FALSE,skip=2) 
 PAR(GH3050316,0.5) # 256
 R_FR_ratio(GH3050316,0.5) # 0.66
 
 # GH4 -90 degree with surrounding plants
-GH4050316<-read.table("050316GH4.IRR",header=FALSE,skip=2) # this is Susan's data
+GH4050316<-read.table("050316GH4.IRR",header=FALSE,skip=2) 
 PAR(GH4050316,0.5) # 315
 R_FR_ratio(GH4050316,0.5) # 0.89
 
@@ -233,27 +233,27 @@ plot + geom_text(data=ldata,aes(x=xpos,y=ypos,label=lab))
 # 050516 
 # inside green hosue
 # GH1 # Angle 1: straight up (no surrounding plant)
-GH1IN050616<-read.table("050616GH1IN.IRR",header=FALSE,skip=2) # this is Susan's data
+GH1IN050616<-read.table("050616GH1IN.IRR",header=FALSE,skip=2) 
 PAR(GH1IN050516,0.5) # 178.9069
 R_FR_ratio(GH1IN050516,0.5) # 1.17833
 # GH2 Angle 2: ~90 degree (no surrounding plant)
-GH2IN050616<-read.table("050616GH2IN.IRR",header=FALSE,skip=2) # this is Susan's data
+GH2IN050616<-read.table("050616GH2IN.IRR",header=FALSE,skip=2) 
 PAR(GH2IN050516,0.5) # 79.82014
 R_FR_ratio(GH2IN050516,0.5) # 1.207607
 # GH3 straight up with surrounding plants
-GH3IN050616<-read.table("050616GH3IN.IRR",header=FALSE,skip=2) # this is Susan's data
+GH3IN050616<-read.table("050616GH3IN.IRR",header=FALSE,skip=2) 
 PAR(GH3IN050516,0.5) # 106.1501
 R_FR_ratio(GH3IN050516,0.5) # 0.846201
 # outside green house
-GH4IN050616<-read.table("050616GH4IN.IRR",header=FALSE,skip=2) # this is Susan's data
+GH4IN050616<-read.table("050616GH4IN.IRR",header=FALSE,skip=2) 
 PAR(GH4IN050516,0.5) # 59.84898
 R_FR_ratio(GH4IN050516,0.5) # 0.8984954
 # GH1 # Angle 1: straight up (no surrounding plant) oustiside greenhosue
-GH1OUT050616<-read.table("050616GH1OUT.IRR",header=FALSE,skip=2) # this is Susan's data
+GH1OUT050616<-read.table("050616GH1OUT.IRR",header=FALSE,skip=2) 
 PAR(GH1OUT050516,0.5) # 498.1909
 R_FR_ratio(GH1OUT050516,0.5) # 1.261936
 # GH2 # Angle 1: straight up (no surrounding plant) oustiside greenhosue
-GH2OUT050616<-read.table("050616GH2OUT.IRR",header=FALSE,skip=2) # this is Susan's data
+GH2OUT050616<-read.table("050616GH2OUT.IRR",header=FALSE,skip=2) 
 PAR(GH2OUT050516,0.5) # 162.5635
 R_FR_ratio(GH2OUT050516,0.5) # 1.292816
 
@@ -321,27 +321,27 @@ ggsave(file="filtered.spec.plot.pdf",plot=filtered.spec.plot)
 # 050616 (tomato dense vs non dense)
 # inside green hosue
 # GH1 # Angle 1: straight up (no surrounding plant)
-GH1IN050616<-read.table("050616GH1IN.IRR",header=FALSE,skip=2) # this is Susan's data
+GH1IN050616<-read.table("050616GH1IN.IRR",header=FALSE,skip=2) 
 PAR(GH1IN050616,0.5) # 1041.308
 R_FR_ratio(GH1IN050616,0.5) # 1.115923
 # GH2 Angle 2: ~90 degree (no surrounding plant)
-GH2IN050616<-read.table("050616GH2IN.IRR",header=FALSE,skip=2) # this is Susan's data
+GH2IN050616<-read.table("050616GH2IN.IRR",header=FALSE,skip=2) 
 PAR(GH2IN050616,0.5) # 196.4688
 R_FR_ratio(GH2IN050616,0.5) # 0.9796839
 # GH3 straight up with surrounding plants
-GH3IN050616<-read.table("050616GH3IN.IRR",header=FALSE,skip=2) # this is Susan's data
+GH3IN050616<-read.table("050616GH3IN.IRR",header=FALSE,skip=2) 
 PAR(GH3IN050616,0.5) # 523.7732
 R_FR_ratio(GH3IN050616,0.5) # 1.159585
 # GH4 
-GH4IN050616<-read.table("050616GH4IN.IRR",header=FALSE,skip=2) # this is Susan's data
+GH4IN050616<-read.table("050616GH4IN.IRR",header=FALSE,skip=2) 
 PAR(GH4IN050616,0.5) # 158.7858
 R_FR_ratio(GH4IN050616,0.5) # 0.9138912
 # GH1 # Angle 1: straight up (no surrounding plant) oustiside greenhosue
-GH1OUT050616<-read.table("050616GH1OUT.IRR",header=FALSE,skip=2) # this is Susan's data
+GH1OUT050616<-read.table("050616GH1OUT.IRR",header=FALSE,skip=2) 
 PAR(GH1OUT050616,0.5) # 2167.11
 R_FR_ratio(GH1OUT050616,0.5) # 1.183582
 # GH2 # Angle 1: straight up (no surrounding plant) oustiside greenhosue
-GH2OUT050616<-read.table("050616GH2OUT.IRR",header=FALSE,skip=2) # this is Susan's data
+GH2OUT050616<-read.table("050616GH2OUT.IRR",header=FALSE,skip=2) 
 PAR(GH2OUT050616,0.5) # 474.5879
 R_FR_ratio(GH2OUT050616,0.5) # 1.17013
 
@@ -454,7 +454,19 @@ plot<-ggplot(spec.out.inside.df2.melt2, aes(x=wavelength,y=value,shape=factor(an
 plot
 ggsave(file="sepc.outside.in.png",width=8,height=11)
 
+# exp2 (062316, Kazu)
+tomato.trait.data<-read.csv("tomato_trait_data2.csv") 
+head(tomato.trait.data)
+library(reshape2)
+tomato.trait.data.melt<-melt(tomato.trait.data,id.var=c("trait","date"))
+tomato.trait.data.melt$trt<-sub("(TA|TN)([[:digit:]]+)","\\1",tomato.trait.data.melt$variable)
+tomato.trait.data.melt$rep<-sub("(TA|TN)([[:digit:]]+)","\\2",tomato.trait.data.melt$variable)
+tomato.trait.data.melt$trait
+# plot
+library(ggplot2)
+plot<-ggplot(tomato.trait.data.melt,aes(x=trt,y=value,color=factor(trt))) + geom_jitter() + facet_grid(date~trait)
+plot<-plot+ theme(strip.text.x=element_text(angle=90))
+ggsave(file="tomato.SAS.GH.exp2.png",height=5,width=5*1.3)
 
 
-#
 
