@@ -461,12 +461,47 @@ library(reshape2)
 tomato.trait.data.melt<-melt(tomato.trait.data,id.var=c("trait","date"))
 tomato.trait.data.melt$trt<-sub("(TA|TN)([[:digit:]]+)","\\1",tomato.trait.data.melt$variable)
 tomato.trait.data.melt$rep<-sub("(TA|TN)([[:digit:]]+)","\\2",tomato.trait.data.melt$variable)
-tomato.trait.data.melt$trait
+tomato.trait.data.melt$trait1<-sub("([[:alpha:]]+)([[:digit:]]+)","\\1",tomato.trait.data.melt$trait)
+tomato.trait.data.melt$stage<-sub("([[:alpha:]]+)([[:digit:]]+)","\\2",tomato.trait.data.melt$trait)
+tomato.trait.data.melt$stage<-as.integer(tomato.trait.data.melt$stage)
 # plot
 library(ggplot2)
-plot<-ggplot(tomato.trait.data.melt,aes(x=trt,y=value,color=factor(trt))) + geom_jitter() + facet_grid(date~trait)
-plot<-plot+ theme(strip.text.x=element_text(angle=90))
-ggsave(file="tomato.SAS.GH.exp2.png",height=5,width=5*1.3)
+plot<-ggplot(tomato.trait.data.melt,aes(x=trt,y=value,color=factor(trt))) + geom_jitter()
+plot<-plot+ facet_grid(trait1~stage)+theme(strip.text.x=element_text(angle=90))
+ggsave(file="tomato.SAS.GH.exp2.062316.png",height=5,width=5*1.3)
+
+# tomato spectrum (exp2, Kazu, 062316)
+setwd("062316GH")
+spec.files<-list.files(pattern=".IRR")
+# calculate R/FR
+data.R_FR<-list()
+for(x in spec.files) {
+  temp<-read.table(x,header=FALSE,skip=2) #   
+  data.R_FR[x]<-R_FR_ratio(temp,0.5)
+}
+data.R_FR.df<-as.data.frame(data.R_FR)
+# calculate PAR
+data.PAR<-list()
+for(x in spec.files) {
+  temp<-read.table(x,header=FALSE,skip=2) #   
+  data.PAR[x]<-PAR(temp,0.5)
+}
+data.PAR.df<-as.data.frame(data.PAR)
+# merge
+PAR.R_FR.tomato<-data.frame(R_FR=t(data.R_FR.df),PAR=t(data.PAR.df))
+# graph
+rownames(PAR.R_FR.tomato)<-sub("^X","",rownames(PAR.R_FR.tomato))
+PAR.R_FR.tomato$date<-sub("([[:digit:]]+)(TA|TN)([[:digit:]]+)(H|V)(\\.IRR)","\\1",rownames(PAR.R_FR.tomato))
+PAR.R_FR.tomato$type<-sub("([[:digit:]]+)(TA|TN)([[:digit:]]+)(H|V)(\\.IRR)","\\4",rownames(PAR.R_FR.tomato))
+PAR.R_FR.tomato$rep<-sub("([[:digit:]]+)(TA|TN)([[:digit:]]+)(H|V)(\\.IRR)","\\3",rownames(PAR.R_FR.tomato))
+PAR.R_FR.tomato$trt<-sub("([[:digit:]]+)(TA|TN)([[:digit:]]+)(H|V)(\\.IRR)","\\2",rownames(PAR.R_FR.tomato))
+PAR.R_FR.tomato$type<-sub("H","horizontal",PAR.R_FR.tomato$type)
+PAR.R_FR.tomato$type<-sub("V","vertical",PAR.R_FR.tomato$type)
+
+ggplot(PAR.R_FR.tomato,aes(x=trt,y=R_FR,color=PAR,shape=trt))+geom_jitter() + facet_grid(date~type) + scale_color_gradient(low="black",high="magenta")
+ggsave(file="../tomato.exp2.PAR.RFR.png") # 
+
+
 
 
 
