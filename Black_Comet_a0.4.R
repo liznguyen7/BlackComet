@@ -501,6 +501,22 @@ PAR.R_FR.tomato$type<-sub("V","vertical",PAR.R_FR.tomato$type)
 ggplot(PAR.R_FR.tomato,aes(x=trt,y=R_FR,color=PAR,shape=trt))+geom_jitter() + facet_grid(date~type) + scale_color_gradient(low="black",high="magenta")
 ggsave(file="../tomato.exp2.PAR.RFR.png") # 
 
+# 
+# exp3 (071216, Kazu)
+tomato.trait.data3<-read.csv("tomato_trait_data3.csv") 
+head(tomato.trait.data3)
+library(reshape2)
+tomato.trait.data3.melt<-melt(tomato.trait.data3,id.var=c("trait","date"))
+tomato.trait.data3.melt$trt<-sub("(TA|TN)([[:digit:]]+)","\\1",tomato.trait.data3.melt$variable)
+tomato.trait.data3.melt$rep<-sub("(TA|TN)([[:digit:]]+)","\\2",tomato.trait.data3.melt$variable)
+tomato.trait.data3.melt$trait1<-sub("([[:alpha:]]+)([[:digit:]]+)","\\1",tomato.trait.data3.melt$trait)
+tomato.trait.data3.melt$stage<-sub("([[:alpha:]]+)([[:digit:]]+)","\\2",tomato.trait.data3.melt$trait)
+tomato.trait.data3.melt$stage<-as.integer(tomato.trait.data3.melt$stage)
+# plot
+library(ggplot2)
+plot<-ggplot(tomato.trait.data3.melt,aes(x=trt,y=value,color=factor(trt))) + geom_jitter()
+plot<-plot+ facet_grid(trait1~stage)+theme(strip.text.x=element_text(angle=90))
+ggsave(file="tomato.SAS.GH.exp3.071216.png",height=5,width=5*1.3)
 
 
 
